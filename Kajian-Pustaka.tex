@@ -1,0 +1,118 @@
+\chapter{Kajian Pustaka}
+
+% \section{BOUSS-2D}
+    % BOUSS-2D merupakan variasi nonlinear dari persamaan Boussinesq yang di turunkan oleh  Nwogu (1993b). Informasi lebih lanjut dari persamaan ini bisa di lihat di \cite{fang2014revisiting}. Persamaan massa dan momentum dapat di tulis dengan ketinggian permukaan η(x,t) (dimana x menunjukan arah horisontal, dan t menujukan waktu)
+
+\section{Pembelajaran Mesin}
+    Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{ArthurLSamuel1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$).
+
+\section{Supervised Learning}
+    Merupakan bagian dari pembelajaran mesin yang memetaan input ke output yang berdasar pada contoh pasangan input dan output\cite{AIPeterNorvig}.
+
+\section{Linear Regression}
+    Tujuan regresi adalah untuk memprediksi nilai dari satu atau lebih peubah target ($t$) yang kontinyu, berdasarkan nilai dari vektor $x$ berdimensi D dari peubah input\cite[halaman~137]{MLBishop}.
+
+    Di berikan data training yang berdasarkan $N$ jumlah observasi {Xn}, dimana $n = 1, ..., N$, dengan target nilai yang sesuai {$t_n$}, tujuannya untuk memprediksi nilai dari $t$ untuk nilai baru dari $x$.
+
+\section{Neural Network}
+    Model neural network sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan Input ($I$) (input neuron), dan satu output ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki output $0$ dan $1$.
+    \begin{equation}
+        y = f(sum)
+    \end{equation}
+    dimana
+    \begin{equation}
+    \label{eq:mcullochNeuralNetwork}
+        sum = \sum_{i=1}^N I_iW_i
+    \end{equation}
+    Model neural network \ref{eq:mcullochNeuralNetwork} dapar di representasikan dengan:
+    
+    \def\layersep{2.5cm}
+
+    \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
+        \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+        \tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+        \tikzstyle{input neuron}=[neuron, fill=green!50];
+        \tikzstyle{output neuron}=[neuron, fill=red!50];
+        \tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+        \tikzstyle{annot} = [text width=4em, text centered]
+
+        % Draw the input layer nodes
+        \foreach \name / \y in {1,...,2}
+        % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
+            \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+
+        % Draw the hidden layer nodes
+        \foreach \name / \y in {1,...,2}
+            \path[yshift=0.0cm]{}
+                node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+
+        % Draw the output layer node
+        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-1] (O) {};
+
+        % Connect every node in the input layer with every node in the
+        % hidden layer.
+        \foreach \source in {1,...,2}
+            \foreach \dest in {1,...,2}
+                \path (I-\source) edge node[midway, right] {w} (H-\dest);
+
+        % Connect every node in the hidden layer with the output layer
+        \foreach \source in {1,...,2}
+            \path (H-\source) edge node[midway, right] {w} (O);
+
+        % Annotate the layers
+        \node[annot,above of=H-1, node distance=1cm] (hl) {Hidden layer};
+        \node[annot,left of=hl] {Input layer};
+        \node[annot,right of=hl] {Output layer};
+        \label{neuralNetworkRepresentation}
+    \end{tikzpicture}
+
+\section{Feed Forward Neural Network (Multilayer Perceptron)}
+    Feed Forward Neural Network adalah sebuah model neural network yang menentukan fungsi basis di awal namun mengizinkannya untuk beradaptasi, dengan kata lain menggunakan parameter untuk fungsi basis yang parameternya berubah ketika training \cite{MLBishop}.
+
+\section{Hidden layer}
+    Hidden layer adalah layer yang berada di antara input neuron dan output neuron\cite{ShaiUnderstandingMachineLearning}. Pada \ref{neuralNetworkRepresentation}, hidden layer berada di tengah, antara neuron input input dan output. 
+\section{Fungsi Aktivasi}
+    Fungsi aktivasi di gunakan untuk mengubah level aktivasi pada suatu neuron menjadi sebuah sinyal output \cite{KarlicOlgacPerformanceAnalysis}. Fungsi aktivasi bisa saja berupa sign function,
+    \begin{equation}
+        f(x) =
+        \begin{cases}
+            -1 & \text{if } x < 0, \\
+            0 & \text{if } x = 0, \\
+            1 & \text{if } x > 0.
+        \end{cases}
+    \end{equation}
+    threshold function
+    \begin{equation}
+        f(x) = 1_{[x>0]}
+    \end{equation}
+    \begin{equation}
+    \end{equation}
+    atau linear
+    \begin{equation}
+        f(x) = x
+    \end{equation}
+\subsection{Sigmoid}
+    Sigmoid adalah suatu fungsi threshold dengan perkiraan yang halus dengan karakteristik bentuk yang seperti huruf s \cite{ShaiUnderstandingMachineLearning}. Fungsi sigmoid dapat di definiskan dengan bentuk:
+    \begin{equation}
+        sig(x) = \frac{1}{1+e^{-x}}
+        \label{eq:sigmoidUniPolar}
+    \end{equation}
+
+    Fungsi sigmoid memiliki variasi batasan, yakni uni-polar dan bi-polar \cite{KarlicOlgacPerformanceAnalysis}. Fungsi sigmoid uni-polar memiliki batas bawah $0$ dan batas atas $1$ \cite{KarlicOlgacPerformanceAnalysis}. Untuk bipolar memiliki batas bawah $-1$ dan batas atas $-1$ \cite{KarlicOlgacPerformanceAnalysis}.
+    Persamaan \ref{eq:sigmoidUniPolar} merupakan fungsi sigmoid uni-polar. Sedangkan fungsi sigmoid bipolar di definiskan dengan:
+    \begin{equation}
+        sig(x) = \frac{1-e^{-x}}{1+e^{-x}}
+    \end{equation}
+\section{Cost/Lost Function}
+    Ukuran dari perbedaan yang terjadi sebagai akibat dari proses prediksi \cite{MLBishop}. Cost function dapat di gunakan untuk menghitung galat yang terjadi saat prediksi. Untuk selanjutnya di berikan kepada fungsi optimasi sebagai parameter. Dalam training neural network, tujuan utamanya adalah memimalkan cost function, sehingga mendapatkan prediksi yang cukup akurat \cite{bishop}.
+\section{Gradient Descent}
+    Adalah suatu fungsi optimasi yang di gunakan untuk meminimalkan \emph{differentiable convex function} \cite{ShaiUnderstandingMachineLearning}. Gradient dari suatu fungsi terdifferensial $f : R^d \rightarrow R$ dapat di definiskan dengan $\triangledown f(w)$ yang mana merupakan vektor dari turunan parsial dari $f$ \cite{ShaiUnderstandingMachineLearning}. Dengan persamaannya:
+    \begin{equation}
+        \triangledown f(w) = \Big( \frac{\partial(w)}{\partial(w_{[1]})} ,... ,\frac{\partial(w)}{\partial(w_{[d]})} \Big)
+    \end{equation}
+\section{Mean squared error (MSE)}
+    Salah satu cost function empiris yang merupakan rata rata kuadrat dari perbedaan antara data prediksi dan data hasil pengukuran. MSE di definisikan dengan:
+    \begin{equation}
+        L_s(h) = \frac{1}{m}\sigma^m_{i=1}(h(x_i) - y_i)^2
+    \end{equation}
+    dimana $h$ adalah fungsi untuk memprediksi nilai, dan $y$ adalah nilai dari pengukuran \cite{ShaiUnderstandingMachineLearning}. 

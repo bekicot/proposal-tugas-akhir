@@ -5,6 +5,18 @@
 %%  New Update 28 Pebruari 2017 : Bookmarks pdf, Pembimbing hanya satu
 
 \documentclass[a4paper,12pt,oneside]{book}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{capt-of}
+\usepackage{anysize}
+
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+% \usepgfplotslibrary{external} 
+% \tikzexternalize
+
+\usepackage{placeins}
 \usepackage[utf8]{inputenc}
 \usepackage{sectsty}
 \usepackage{graphicx}
@@ -13,8 +25,6 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{array}
-\usepackage[table]{xcolor}
-\usepackage{anysize}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[bahasa]{babel}
@@ -84,8 +94,8 @@
 \newcommand{\Bulan}{Agustus} % Bulan Pengesahan
 \newcommand{\PembimbingSatu}{Dr. Didit Aditya, S.Si, M.Si}
 \newcommand{\NIPPembimbingSatu}{16830005}
-\newcommand{\PembimbingDua}{Dr. Putu Harry Gunawan}
-\newcommand{\NIPPembimbingDua}{}
+\newcommand{\PembimbingDua}{Dr. Putu Harry Gunawan, S.Si., M.Si., M.Sc.}
+\newcommand{\NIPPembimbingDua}{16860043}
 \newcommand{\Kaprodi}{}
 \newcommand{\NIPKaprodi}{95650581-1}
 \newif\ifPembimbingHanyaSatu
@@ -150,7 +160,7 @@
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
 \bibliographystyle{plain} %harvard style
-\bibliography{References}
+\bibliography{References.bib}
 %
 %\pagebreak
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

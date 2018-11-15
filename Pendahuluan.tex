@@ -1,31 +1,25 @@
 \chapter{Pendahuluan}
 \section{Latar Belakang}
-    Sekitar 78 persen dari bumi kita terdiri dari air\cite{USGSEarthWater}. Dengan rasio air yang begitu besar di bandingkan dengan tanah, menyebabkan perubahan kondisi air, juga menyebabkan perubahan yang signifikan terhadap kondisi bumi. Salah satu perubahan geografis yang terjadi yang di akibatkan oleh air adalah ketika terjadi kenaikan gelombang air laut ke permukaan.
-    
-    Gelombang air laut adalah gelombang permukaan yang terjadi di laut. Penyebabnya adalah energy pindah / berubah bentuk yang dampaknya menggerakan air tersebut \cite{noaaWavesInOcean}. Asal energi tersebut bermacam-macam, beberapa contohnya adalah gravitas, angin, gempa bumi, gunung berapi.
 
-    Dalam kondisi normal, gelombang air laut tidak berbahaya bagi manusia. Dalam kondisi ekstrim, yang di sebabkan oleh energi yang extrim pula, hal ini dapat sangat berbahaya bagi manusia, bahkan bisa merubah bentuk geografis pada area yang terkena dampak gelombang. Contoh gelombang air laut yang berbahaya adalah Tsunami dan Gelombang Badai.
+Terumbu karang adalah ekosistem bawah laut yang terbentuk dari sekumpulan karang. Selain berfungsi sebagai ekosistem di bawah laut, terumbu karang juga berfungsi sebagai pemecah gelombang. Sebagian besar kepulauan di wilayah pasific di kelilingi oleh terumbu karang yang tumbuh di laut dangkal yang dekat dengan pantai \cite{DemirbilekBoussinesq}. 
 
-    Tsunami adalah gelombang tinggi yang di sebabkan oleh gempa bumi, erupsi gunung berapi, dan longsor bawah laut. Selain tsunami, ada pula gelombang badai\cite{NOAATsunami}. Gelombang badai adalah peningkatan ketinggian abnormal dari gelombang laut, di ukur berdasarkan prediksi normal dari gelombang yang di sebabkan efek gravitasi. Sesuai dengan namanya, gelombang badai, di sebabkan oleh hembusan angin yang sangat kuat. Terlepas dari penyebab badai, faktor lainnya yang menyebabkan abnormalitas dari ketinggian gelombang air laut adalah perubahan tekanan udara, bentuk pesisir pantai, dan bentuk dasar laut.
+% $_GAMBAR_LANDSAT_$
 
-    Mengingat besar kontribusi gelombang air laut terhadap kondisi geografis, budaya, dan ekosistem pada pesisir pantai. Memprediksi seberapa jauh suatu gelombang masuk merupakan hal yang sangat penting untuk di pelajari. Prediksi tersebut akan sangat bermanfaat bagi kehidupan pesisir pantai, dan pada kasus tertentu seperti Tsunami dan Gelombang Badai, dapat menyelamatkan nyawa manusia. TA ini bertujuan untuk memprediksi seberapa tinggi gelombang air masuk ke daratan. 
+Selama ini metode yang ada untuk memprediksi tinggi gelombang runup pada terumbu karang masih tergolong baru. Metodenya sendiri terbagi menjadi 2. Metode yang pertama dilakukan dengan pendekatan klasik, dan di lakukan secara analitis. Yakni dengan melakukan eksperimen dan observasi, lalu di cari model matematika yang tepat. Model yang demikian sulit untuk dikembangkan dan beradaptasi dengan kondisi lingkungan yang berbeda. Prediksi yang didapat dari model yang demikian pun masih belum sempurna \cite{DemirbilekBoussinesq}. Dalam \ref{DemirbilekBoussinesq}. Sedangkan metode yang kedua dilakukan dengan pendekatan soft computing.
+
+Pada Tugas Akhir ini akan menggunakan Pembelajaran Mesin untuk memprediksi runup gelombang di atas terumbu karang, dengan metode yang dipakai adalah Artificial Neural Network. Hasilnya akan dianalisa dan dibandingkan dengan tinggi runup sebenarnya, sesuai dengan hasil observasi. Setelah itu, dari hasil prediksi, akan dilihat pula efisiensi dari terumbu karang dalam meredam gelombang.
 
 \section{Perumusan Masalah}
 Rumusan masalah yang ingin saya angkat adalah
 \begin{enumerate}
-    \item Apa saja parameter dari gelombang air laut?
-    \item Dengan parameter tersebut, seberapa jauh gelombang akan naik, relatif pada kondisi air yang diam?
-    \item Solusi numerik yang ada untuk meprediksi kenaikan gelombang air laut ke daratan?
-    \item Apakah solusinya bisa di selesaikan dengan "General Equation Solver" dengan substansial?
-    \item Perbandingan solusi numeric dan solusi yang di selesaikan oleh Machine Learning?
+    \item Seberapa efisien terumbu karang dalam meredam gelombang?
 \end{enumerate}
-% \section{Tujuan}
-% Berikut adalah tujuan yang ingin dicapai pada penulisan proposal/TA.
-% \begin{enumerate}
-%     \item Untuk mengetahui mengapa ini terjadi;
-%     \item Untuk mempelajari proses kejadian masalah;
-%     \item Untuk melihat dampak yang dipengaruhi oleh kejadian ini.
-% \end{enumerate}
+\section{Tujuan}
+Berikut adalah tujuan yang ingin dicapai pada penulisan proposal/TA.
+\begin{enumerate}
+    \item Mengetahui akurasi Artificial Neural Network untuk prediksi runup gelombang pada terumbu.
+    \item Mengetahui efisiensi dari terumbu karang dalam meredam gelombang.
+\end{enumerate}
 \section{Batasan Masalah}
 Untuk memastikan hasil yang cukup akurat
 \begin{enumerate}

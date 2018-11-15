@@ -1,7 +1,106 @@
 \chapter{Metodologi dan Desain Sistem}
+Pada TA ini akan di 
 \section{Deskripsi Data}
-\subsection{Kondisi Experiment}
-\subsection{Raw Data}
+Data yang akan digunakan dalam aplikasi neural network di TA ini adalah data hasil analisis dari eksperimen yang di lakukan oleh US Army Corps of Engineer pada Agustus - September 2006. Analisa dilakukan oleh Demirbilek et al. dan di tulis dalam laporan yang berjudul "Laboratory Study of Wind Effect on Runup over Fringing Reefs".
+
+\subsection{Kondisi eksperimen}
+9 sensor dipasang disepanjang tabung eksperimen dengan jarak yang bervariasi. Di bagian atas gelombang dipasang blower angin yang disertai sensor kecepatan angin. Eksperimen dibagi menjadi 3 bagian. Eksperimen pertama dilakukan hanya menggunakan variabel gelombang, dengan kecepatan angin 0. Eksperimen kedua, dilakukan hanya menggunakan variabel angin. Selanjutnya eksperimen ketiga adalah gabungan dari perubahan variable gelombang dan variabel angin.
+
 \subsection{Hasil Analisa Data}
+    \begin{table}
+    \caption{Sampel data hasil analisa.}
+    \begin{center}
+      \begin{tabular}{|l|l|l|l|l|l|l|l|}
+      \hline
+      TestId & H & T & WL & $R_{max}$ & Wind \\ \hline
+      Test99 & 5.5 & 1.25 & 50.0 & 1.5 & 7.1 \\ \hline
+      Test100 & 6.0 & 1.0 & 50.0 & 1.6 & 6.9 \\ \hline
+      Test101 & 3.3 & 1.0 & 50.0 & 0.7 & 5.3 \\ \hline
+      Test102 & 8.2 & 2.5 & 53.1 & 8.4 & 7.0 \\ \hline
+      Test103 & 8.6 & 2.0 & 53.1 & 7.8 & 7.1 \\ \hline
+      Test104 & 8.0 & 1.75 & 53.1 & 6.7 & 5.8 \\ \hline
+      Test105 & 7.8 & 1.5 & 53.1 & 5.9 & 6.3 \\ \hline
+      Test106 & 5.4 & 1.5 & 53.1 & 4.0 & 6.7 \\ \hline
+      Test107 & 6.3 & 1.25 & 53.1 & 4.5 & 6.8 \\ \hline
+      Test108 & 6.6 & 1.0 & 53.1 & 6.4 & 6.7 \\ \hline
+      Test109 & 3.8 & 1.0 & 53.1 & 5.3 & 6.5 \\ \hline
+      \end{tabular}
+      \end{center}
+    \end{table}
+  \FloatBarrier
+  Dari laporan "Laboratory Study of Wind Effect on Runup over Fringing Reefs" \cite{DemirbilekReport} data yang di hasilkan berupa data hasil analisa yang berasal dari raw data yang merupakan time series. Pada table tersebut $H$ merupakan tinggi gelombang, $T$ merupakan spectral peak periods, WL merupakan Wave Length, dan Rmax adalah ketinggian maximum dari runup. $H$, $WL$, dan $R_{max}$ merupakan dalam $cm$.
+
 \section{Flowchart sistem}
-\section{Algoritma}
+\begin{figure}
+  \caption{Flowchart Sistem}
+  \begin{center}
+    \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+        text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+    \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+        text width=10em, text centered, rounded corners, minimum height=6em]
+    \tikzstyle{blockTraining} = [rectangle, draw, fill=red!20, 
+        text width=10em, text centered, rounded corners, minimum height=6em]
+    \tikzstyle{line} = [draw, -latex']
+    \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+        minimum height=2em]
+        
+    \begin{tikzpicture}[node distance = 3cm, auto]
+        % Place nodes
+        \node [block] (init) {Mulai};
+        \node [block, below of=init] (bacaData) {Membaca data report dari csv file};
+        \node [block, below of=init] (transformasiData) {Transformasi data menjadi matrix};
+        \node [block, below of=transformasiData] (splitTrainingTesting) {Split data 80 persen training, 20 persen testing};
+        \node [block, below of=splitTrainingTesting] (setupEpochLr) {Menentukan jumlah epoch dan learning rate};
+        \node [blockTraining, below of=setupEpochLr] (training) {Training Data};
+        \node [block, below of=training] (testing) {Testing};
+        \node [block, below of=testing] (stop) {Stop};
+      
+        % Draw edges
+        \path [line] (init) -- (bacaData);
+        \path [line] (bacaData) -- (transformasiData);
+        \path [line] (transformasiData) -- (splitTrainingTesting);
+        \path [line] (splitTrainingTesting) -- (setupEpochLr);
+        \path [line] (setupEpochLr) -- (training);
+        \path [line] (training) -- (testing);
+        \path [line] (testing) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+\begin{figure}
+  \caption{Flowchart Training}
+  \begin{center}
+    \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+        text width=10em, text centered, rounded corners, minimum height=6em]
+    \tikzstyle{blockTraining} = [rectangle, draw, fill=red!20, 
+        text width=14em, text centered, rounded corners, minimum height=2em]
+    \tikzstyle{stopTrainng} = [rectangle, draw, fill=red!20, 
+        text width=3em, text centered, rounded corners,  distance=10cm]
+    \tikzstyle{line} = [draw, -latex']
+    \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2.3cm,
+        minimum height=2em]
+    \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+        text width=4em, text badly centered, node distance=2.5cm, inner sep=0pt]
+        
+    \begin{tikzpicture}[node distance = 2cm, auto]
+        % Place nodes
+        \node [blockTraining] (init) {Mulai};
+        \node [blockTraining, below of=init] (randomWeight) {Inisialisasi $weight$ dengan random data};
+        \node [blockTraining, below of=randomWeight] (IW){Mengalikan Input Layer Dengan $Weight$ hidden layer};
+        \node [blockTraining, below of=IW] (aktivasi){Jalankan fungsi aktivasi hidden layer};
+        \node [blockTraining, below of=aktivasi] (HW){Mengalikan Input Layer Dengan $Weight$ untuk $output$};
+        \node [blockTraining, below of=HW] (aktivasiOutput){Mengalikan Input Layer Dengan $Weight$ untuk $output$};
+        \node [blockTraining, below of=aktivasiOutput] (cost){Kalkulasi cost};
+        \node [blockTraining, below of=cost] (stop){Stop};
+  
+        % Draw edges
+        \path [line] (init) -- (randomWeight);
+        \path [line] (randomWeight) -- (IW);
+        \path [line] (IW) -- (aktivasi);
+        \path [line] (aktivasi) -- (HW);
+        \path [line] (HW) -- (aktivasiOutput);
+        \path [line] (aktivasiOutput) -- (cost);
+        \path [line] (cost) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+\FloatBarrier

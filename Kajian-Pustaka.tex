@@ -1,30 +1,25 @@
 \chapter{Kajian Pustaka}
 
-% \section{BOUSS-2D}
-    % BOUSS-2D merupakan variasi nonlinear dari persamaan Boussinesq yang di turunkan oleh  Nwogu (1993b). Informasi lebih lanjut dari persamaan ini bisa di lihat di \cite{fang2014revisiting}. Persamaan massa dan momentum dapat di tulis dengan ketinggian permukaan η(x,t) (dimana x menunjukan arah horisontal, dan t menujukan waktu)
+Pembelajaran mesin pada sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan neural network dengan tipe Convolutional Neural Network untuk mendeteksi wajah. Hingga yang terdekat topiknya dengan TA ini, yakni Van Gent et al (2007) \cite{van2007neural}. Beliau menggunakan Neural Network untuk menganalisa \em{Overtopping} Gelombang pada struktur di wilayah pantai.
 
 \section{Pembelajaran Mesin}
-    Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{ArthurLSamuel1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$).
+    Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{arthur_l_samuel_1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$). Dalam TA ini, akan dibuat suatu program yang dapat belajar dari data gelombang hasil observasi. Lalu dievaluasi hasilnya, sehingga dapat di lihat seberapa besar galatnya. Lalu diperkecil galatnya dengan metode optimasi.
 
-\section{Supervised Learning}
-    Merupakan bagian dari pembelajaran mesin yang memetaan input ke output yang berdasar pada contoh pasangan input dan output\cite{AIPeterNorvig}.
+\subsection{Supervised Learning}
+    Sebelum data dimasukan ke dalam program, data tersebut diberikan label. Label tersebut bisa berupa input, yakni $H$ (\em{Significant Height} Gelombang), $T$ (\em{Spectral Peak Periods}), dan $WL$ (\em{Wave Length}). Dan label untuk output. Karna pada TA kali ini, akan digunakan regresi linear. Maka tidak ada label untuk output. Parameter input yang berpasangan dengan output tertentu, selanjutnya dinamakan contoh. Pembelajaran Mesin yang demikian dinamakan Supervised Learning. Supervised Learning Merupakan bagian dari pembelajaran mesin yang memetaan input ke output yang berdasar pada contoh pasangan input dan output\cite{AIPeterNorvig}. 
 
-\section{Linear Regression}
-    Tujuan regresi adalah untuk memprediksi nilai dari satu atau lebih peubah target ($t$) yang kontinyu, berdasarkan nilai dari vektor $x$ berdimensi D dari peubah input\cite[halaman~137]{MLBishop}.
-
-    Di berikan data training yang berdasarkan $N$ jumlah observasi {Xn}, dimana $n = 1, ..., N$, dengan target nilai yang sesuai {$t_n$}, tujuannya untuk memprediksi nilai dari $t$ untuk nilai baru dari $x$.
-
-\section{Neural Network}
+\subsection{Neural Network}
+    Selanjutnya data tersebut dimasukan kedalam suatu sistem untuk belajar. Pada TA ini, sistem yang digunakan untuk pembelajaran adalah Neural Network.
     Model neural network sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan Input ($I$) (input neuron), dan satu output ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki output $0$ dan $1$.
     \begin{equation}
-        y = f(sum)
+        y = f(z)
     \end{equation}
     dimana
     \begin{equation}
     \label{eq:mcullochNeuralNetwork}
-        sum = \sum_{i=1}^N I_iW_i
+        z = \sum_{i=1}^N I_iW_i
     \end{equation}
-    Model neural network \ref{eq:mcullochNeuralNetwork} dapar di representasikan dengan:
+    Model neural network \ref{eq:mcullochNeuralNetwork} dapat di representasikan dengan:
     
     \def\layersep{2.5cm}
 
@@ -38,7 +33,6 @@
 
         % Draw the input layer nodes
         \foreach \name / \y in {1,...,2}
-        % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
             \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
 
         % Draw the hidden layer nodes
@@ -66,6 +60,8 @@
         \label{neuralNetworkRepresentation}
     \end{tikzpicture}
 
+\subsection{Regresi Linear}
+    Dalam TA ini akan menggunakan regressi linear untuk memprediksi ketinggian runup gelombang. Regresi Linear adalah suatu metode yang tujuannya memprediksi nilai dari satu atau lebih peubah target ($output$) yang kontinyu, berdasarkan nilai dari vektor $input$ berdimensi D\cite{MLBishop}.
 \section{Feed Forward Neural Network (Multilayer Perceptron)}
     Feed Forward Neural Network adalah sebuah model neural network yang menentukan fungsi basis di awal namun mengizinkannya untuk beradaptasi, dengan kata lain menggunakan parameter untuk fungsi basis yang parameternya berubah ketika training \cite{MLBishop}.
 
@@ -104,7 +100,7 @@
         sig(x) = \frac{1-e^{-x}}{1+e^{-x}}
     \end{equation}
 \section{Cost/Lost Function}
-    Ukuran dari perbedaan yang terjadi sebagai akibat dari proses prediksi \cite{MLBishop}. Cost function dapat di gunakan untuk menghitung galat yang terjadi saat prediksi. Untuk selanjutnya di berikan kepada fungsi optimasi sebagai parameter. Dalam training neural network, tujuan utamanya adalah memimalkan cost function, sehingga mendapatkan prediksi yang cukup akurat \cite{bishop}.
+    Ukuran dari perbedaan yang terjadi sebagai akibat dari proses prediksi \cite{MLBishop}. Cost function dapat di gunakan untuk menghitung galat yang terjadi saat prediksi. Untuk selanjutnya di berikan kepada fungsi optimasi sebagai parameter. Dalam training neural network, tujuan utamanya adalah memimalkan cost function, sehingga mendapatkan prediksi yang cukup akurat \cite{MLBishop}.
 \section{Gradient Descent}
     Adalah suatu fungsi optimasi yang di gunakan untuk meminimalkan \emph{differentiable convex function} \cite{ShaiUnderstandingMachineLearning}. Gradient dari suatu fungsi terdifferensial $f : R^d \rightarrow R$ dapat di definiskan dengan $\triangledown f(w)$ yang mana merupakan vektor dari turunan parsial dari $f$ \cite{ShaiUnderstandingMachineLearning}. Dengan persamaannya:
     \begin{equation}

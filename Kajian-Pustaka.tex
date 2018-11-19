@@ -1,16 +1,29 @@
 \chapter{Kajian Pustaka}
 
-Pembelajaran mesin pada sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan neural network dengan tipe Convolutional Neural Network untuk mendeteksi wajah. Hingga yang terdekat topiknya dengan TA ini, yakni Van Gent et al (2007) \cite{van2007neural}. Beliau menggunakan Neural Network untuk menganalisa \em{Overtopping} Gelombang pada struktur di wilayah pantai.
+Pembelajaran mesin sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan \emph{neural network} dengan tipe \emph{Convolutional Neural Network} untuk mendeteksi wajah. Van Gent et al (2007) \cite{van2007neural}, beliau menggunakan \emph{Neural Network} untuk menganalisa \emph{overtopping} gelombang pada struktur di wilayah pantai. Yau et al (2012)\cite{YAO201230}, dia mengerjakannya dengan menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang Pada bab ini akan dijelaskan model \emph{runup} gelombang pada terumbu karang menggunakan Pembelajaran Mesin.
+
+\section{Runup Gelombang}
+
+Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pantai atau struktur di atas \emph{SWL} \cite{sorensen2005basic}. Pada TA ini, data ovservasi ketinggian \emph{runup} gelombang diukur mulai ketinggian \emph{swl}, hingga maksimum ketinggian air di daratan. Penjelasan lebih lanjut tentang pengambilan data akan dijelaskan pada bagian \nameref{kondisiEksperimen}. Runup gelombang dapat diilustrasikan dengan gambar berikut:
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.7]{./images/runup_gelombang.jpg}
+    \end{center}
+    \caption{Ilustrasi \emph{Runup} gelombang oleh Mike Swenson, Coastal Morphology, University of Wisconsin-Madison \cite{MikeSwenson:WaveRunup}. \emph{SWL (Sea Water Level)} adalah ketinggian Air Normal ketika tidak gelombang . Wilayah Pantai (\emph{Foreshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan daratan. Wilayah lautan \emph{Nearshore}, dimulai dari titik \emph{SWL} yang berpotongan dengan air. Ketika titip potong air dengan daratan berada di atas \emph{SWL}, dinamakan \emph{runup}. Ketinggian \emph{runup} dinotasikan dengan $R$.}
+\end{figure}
+\FloatBarrier
 
 \section{Pembelajaran Mesin}
-    Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{arthur_l_samuel_1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$). Dalam TA ini, akan dibuat suatu program yang dapat belajar dari data gelombang hasil observasi. Lalu dievaluasi hasilnya, sehingga dapat di lihat seberapa besar galatnya. Lalu diperkecil galatnya dengan metode optimasi.
+    Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{arthur_l_samuel_1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$). Dalam TA ini, akan dibuat suatu program yang dapat belajar dari data gelombang hasil observasi ($T$). Lalu dievaluasi hasilnya dengan menggunakan $MSE$ ($P$), sehingga dapat di lihat seberapa besar galatnya. Lalu diperkecil galatnya dengan metode optimasi.
 
 \subsection{Supervised Learning}
-    Sebelum data dimasukan ke dalam program, data tersebut diberikan label. Label tersebut bisa berupa input, yakni $H$ (\em{Significant Height} Gelombang), $T$ (\em{Spectral Peak Periods}), dan $WL$ (\em{Wave Length}). Dan label untuk output. Karna pada TA kali ini, akan digunakan regresi linear. Maka tidak ada label untuk output. Parameter input yang berpasangan dengan output tertentu, selanjutnya dinamakan contoh. Pembelajaran Mesin yang demikian dinamakan Supervised Learning. Supervised Learning Merupakan bagian dari pembelajaran mesin yang memetaan input ke output yang berdasar pada contoh pasangan input dan output\cite{AIPeterNorvig}. 
+    Sebelum data dimasukan ke dalam program, data tersebut diberikan label. Label tersebut bisa berupa \emph{input}, yakni $H$ (\emph{Significant Height} Gelombang), $T$ (\emph{Spectral Peak Periods}), dan $WL$ (\emph{Wave Length}). Dan label untuk \emph{output}. Karna pada TA kali ini, akan digunakan regresi linear. Maka tidak ada label untuk \emph{output}. Parameter \emph{input} yang berpasangan dengan \emph{output} tertentu, selanjutnya dinamakan contoh. Pembelajaran Mesin yang demikian dinamakan \emph{Supervised Learning}. \emph{Supervised Learning} Merupakan bagian dari pembelajaran mesin yang memetaan \emph{input} ke \emph{output} yang berdasar pada contoh pasangan \emph{input} dan \emph{output}\cite{AIPeterNorvig}. 
 
 \subsection{Neural Network}
-    Selanjutnya data tersebut dimasukan kedalam suatu sistem untuk belajar. Pada TA ini, sistem yang digunakan untuk pembelajaran adalah Neural Network.
-    Model neural network sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan Input ($I$) (input neuron), dan satu output ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki output $0$ dan $1$.
+    Selanjutnya data tersebut dimasukan kedalam suatu sistem untuk belajar. Pada TA ini, sistem yang digunakan untuk pembelajaran adalah \emph{Neural Network}.
+    Model \emph{neural network} sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan \emph{Input} ($I$) (\emph{input neuron}), dan satu \emph{output} ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki \emph{output} $0$ dan $1$.
+
     \begin{equation}
         y = f(z)
     \end{equation}
@@ -19,9 +32,10 @@ Pembelajaran mesin pada sudah banyak dipakai di berbagai bidang keilmuan. Mulai 
     \label{eq:mcullochNeuralNetwork}
         z = \sum_{i=1}^N I_iW_i
     \end{equation}
-    Model neural network \ref{eq:mcullochNeuralNetwork} dapat di representasikan dengan:
+
+    Di TA ini, \emph{output} yang akan dihasilkan tidak terbatas pada $0$ dan $1$. Sehingga di \emph{neuron output}, fungsi aktivasi yang digunakan adalah fungsi aktivasi linear. Model \emph{Neural Network}nya dapat direpresentasikan sebagai berikut:
     
-    \def\layersep{2.5cm}
+    \def\layersep{5cm}
 
     \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
         \tikzstyle{every pin edge}=[<-,shorten <=1pt]
@@ -32,26 +46,33 @@ Pembelajaran mesin pada sudah banyak dipakai di berbagai bidang keilmuan. Mulai 
         \tikzstyle{annot} = [text width=4em, text centered]
 
         % Draw the input layer nodes
-        \foreach \name / \y in {1,...,2}
-            \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+        \node[input neuron, pin=left:H] (I-H) at (0,-1) {};
+        \node[input neuron, pin=left:WL] (I-T) at (0,-2) {};
+        \node[input neuron, pin=left:WIND] (I-WL) at (0,-3) {};
+        \node[input neuron, pin=left:T] (I-WIND) at (0,-4) {};
 
         % Draw the hidden layer nodes
-        \foreach \name / \y in {1,...,2}
-            \path[yshift=0.0cm]{}
-                node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+        \path[yshift=0.0cm]{}
+            node[hidden neuron] (H-1) at (\layersep,-1 cm) {};
+        \path[yshift=0.0cm]{}
+            node[hidden neuron] (H-2) at (\layersep,-2 cm) {};
+        \path[yshift=0.0cm]{}
+            node[hidden neuron] (H-3) at (\layersep,-3 cm) {};
+        \path[yshift=0.0cm]{}
+            node[hidden neuron] (H-4) at (\layersep,-4 cm) {};
 
         % Draw the output layer node
-        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-1] (O) {};
+        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-3] (O) {};
 
         % Connect every node in the input layer with every node in the
         % hidden layer.
-        \foreach \source in {1,...,2}
-            \foreach \dest in {1,...,2}
-                \path (I-\source) edge node[midway, right] {w} (H-\dest);
+        \foreach \source in {H, T, WL, WIND}
+            \foreach \dest in {1,...,4}
+                \path (I-\source) edge node[midway, right] {$W_{hidden}$} (H-\dest);
 
         % Connect every node in the hidden layer with the output layer
-        \foreach \source in {1,...,2}
-            \path (H-\source) edge node[midway, right] {w} (O);
+        \foreach \source in {1,...,4}
+            \path (H-\source) edge node[midway, right] {$W_{output}$} (O);
 
         % Annotate the layers
         \node[annot,above of=H-1, node distance=1cm] (hl) {Hidden layer};
@@ -60,55 +81,4 @@ Pembelajaran mesin pada sudah banyak dipakai di berbagai bidang keilmuan. Mulai 
         \label{neuralNetworkRepresentation}
     \end{tikzpicture}
 
-\subsection{Regresi Linear}
-    Dalam TA ini akan menggunakan regressi linear untuk memprediksi ketinggian runup gelombang. Regresi Linear adalah suatu metode yang tujuannya memprediksi nilai dari satu atau lebih peubah target ($output$) yang kontinyu, berdasarkan nilai dari vektor $input$ berdimensi D\cite{MLBishop}.
-\section{Feed Forward Neural Network (Multilayer Perceptron)}
-    Feed Forward Neural Network adalah sebuah model neural network yang menentukan fungsi basis di awal namun mengizinkannya untuk beradaptasi, dengan kata lain menggunakan parameter untuk fungsi basis yang parameternya berubah ketika training \cite{MLBishop}.
-
-\section{Hidden layer}
-    Hidden layer adalah layer yang berada di antara input neuron dan output neuron\cite{ShaiUnderstandingMachineLearning}. Pada \ref{neuralNetworkRepresentation}, hidden layer berada di tengah, antara neuron input input dan output. 
-\section{Fungsi Aktivasi}
-    Fungsi aktivasi di gunakan untuk mengubah level aktivasi pada suatu neuron menjadi sebuah sinyal output \cite{KarlicOlgacPerformanceAnalysis}. Fungsi aktivasi bisa saja berupa sign function,
-    \begin{equation}
-        f(x) =
-        \begin{cases}
-            -1 & \text{if } x < 0, \\
-            0 & \text{if } x = 0, \\
-            1 & \text{if } x > 0.
-        \end{cases}
-    \end{equation}
-    threshold function
-    \begin{equation}
-        f(x) = 1_{[x>0]}
-    \end{equation}
-    \begin{equation}
-    \end{equation}
-    atau linear
-    \begin{equation}
-        f(x) = x
-    \end{equation}
-\subsection{Sigmoid}
-    Sigmoid adalah suatu fungsi threshold dengan perkiraan yang halus dengan karakteristik bentuk yang seperti huruf s \cite{ShaiUnderstandingMachineLearning}. Fungsi sigmoid dapat di definiskan dengan bentuk:
-    \begin{equation}
-        sig(x) = \frac{1}{1+e^{-x}}
-        \label{eq:sigmoidUniPolar}
-    \end{equation}
-
-    Fungsi sigmoid memiliki variasi batasan, yakni uni-polar dan bi-polar \cite{KarlicOlgacPerformanceAnalysis}. Fungsi sigmoid uni-polar memiliki batas bawah $0$ dan batas atas $1$ \cite{KarlicOlgacPerformanceAnalysis}. Untuk bipolar memiliki batas bawah $-1$ dan batas atas $-1$ \cite{KarlicOlgacPerformanceAnalysis}.
-    Persamaan \ref{eq:sigmoidUniPolar} merupakan fungsi sigmoid uni-polar. Sedangkan fungsi sigmoid bipolar di definiskan dengan:
-    \begin{equation}
-        sig(x) = \frac{1-e^{-x}}{1+e^{-x}}
-    \end{equation}
-\section{Cost/Lost Function}
-    Ukuran dari perbedaan yang terjadi sebagai akibat dari proses prediksi \cite{MLBishop}. Cost function dapat di gunakan untuk menghitung galat yang terjadi saat prediksi. Untuk selanjutnya di berikan kepada fungsi optimasi sebagai parameter. Dalam training neural network, tujuan utamanya adalah memimalkan cost function, sehingga mendapatkan prediksi yang cukup akurat \cite{MLBishop}.
-\section{Gradient Descent}
-    Adalah suatu fungsi optimasi yang di gunakan untuk meminimalkan \emph{differentiable convex function} \cite{ShaiUnderstandingMachineLearning}. Gradient dari suatu fungsi terdifferensial $f : R^d \rightarrow R$ dapat di definiskan dengan $\triangledown f(w)$ yang mana merupakan vektor dari turunan parsial dari $f$ \cite{ShaiUnderstandingMachineLearning}. Dengan persamaannya:
-    \begin{equation}
-        \triangledown f(w) = \Big( \frac{\partial(w)}{\partial(w_{[1]})} ,... ,\frac{\partial(w)}{\partial(w_{[d]})} \Big)
-    \end{equation}
-\section{Mean squared error (MSE)}
-    Salah satu cost function empiris yang merupakan rata rata kuadrat dari perbedaan antara data prediksi dan data hasil pengukuran. MSE di definisikan dengan:
-    \begin{equation}
-        L_s(h) = \frac{1}{m}\sigma^m_{i=1}(h(x_i) - y_i)^2
-    \end{equation}
-    dimana $h$ adalah fungsi untuk memprediksi nilai, dan $y$ adalah nilai dari pengukuran \cite{ShaiUnderstandingMachineLearning}. 
+    Dimana $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan \emph{dot productkan} dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan di \emph{dot productkan} dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.

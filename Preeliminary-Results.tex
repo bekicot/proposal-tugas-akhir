@@ -1,32 +1,20 @@
-\chapter{Preeliminary Results}
+\chapter{Preliminary Results}
+Berikut adalah preliminary result dari ``{\Title}''. Data yang digunakan dalam preliminary result ini adalah data yang berasal dari data \emph{testing}. Yakni, 8 data, yang merepresentasikan 20 persen dari keseluruhan data hasil  observasi.
 
-\subsection{Hasil Prediksi Menggunakan Neural Network}
-\begin{center}
-  \begin{figure}[ht]
-      \begin{tikzpicture}
-        \begin{axis}[
-          xlabel=x,
-          ylabel=y]
-        \addplot table [y=predicted, x=num]{relu_10000.dat};
-        \addlegendentry{$Predicted$}
-        \addplot table [y=measured, x=num]{relu_10000.dat};
-        \addlegendentry{$Measured$}
-        \end{axis}
-      \end{tikzpicture}
+\begin{figure}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        xlabel=Nomor Data,
+        ylabel=Tinggi Runup]
+      \addplot table [y=predicted, x=num]{relu_10000.dat};
+      \addlegendentry{$Hasil Prediksi$}
+      \addplot table [y=measured, x=num]{relu_10000.dat};
+      \addlegendentry{$Hasil Observasi$}
+      \end{axis}
+    \end{tikzpicture}
     \caption{Hasil Prediksi Dengan Menggunakan Neural Network}
-  \end{figure}
-\end{center}
+  \end{center}
+\end{figure}
 
-\begin{center}
-  \begin{figure}[ht]
-      \begin{tikzpicture}
-        \begin{axis}[
-          xlabel=x,
-          ylabel=y]
-        \addplot table [y=Cost, x=num]{relu_10000_cost_limit.dat};
-        \addlegendentry{$Predicted$}
-        \end{axis}
-      \end{tikzpicture}
-    \caption{Hasil Prediksi Dengan Menggunakan Neural Network}
-  \end{figure}
-\end{center}
+Berdasarkan running data test terhadap model yang diproduksi saat \emph{training}, data hasil prediksi memiliki Mean Square Error sebesar $2.07902920991855$. Dari 8 data prediksi, terdapat 5 data dengan Square Error dibawah 1.

@@ -1,18 +1,18 @@
 \chapter{Kajian Pustaka}
 
-Pembelajaran mesin sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan \emph{neural network} dengan tipe \emph{Convolutional Neural Network} untuk mendeteksi wajah. Van Gent et al (2007) \cite{van2007neural}, beliau menggunakan \emph{Neural Network} untuk menganalisa \emph{overtopping} gelombang pada struktur di wilayah pantai. Yau et al (2012)\cite{YAO201230}, dia mengerjakannya dengan menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang Pada bab ini akan dijelaskan model \emph{runup} gelombang pada terumbu karang menggunakan Pembelajaran Mesin.
+    Pembelajaran mesin sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan \emph{neural network} dengan tipe \emph{Convolutional Neural Network} untuk mendeteksi wajah. Van Gent et al (2007) \cite{van2007neural}, beliau menggunakan \emph{Neural Network} untuk menganalisa \emph{overtopping} gelombang pada struktur di wilayah pantai. Yau et al (2012)\cite{YAO201230}, dia mengerjakannya dengan menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang Pada bab ini akan dijelaskan model \emph{runup} gelombang pada terumbu karang menggunakan Pembelajaran Mesin.
 
 \section{Runup Gelombang}
 
-Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pantai atau struktur di atas \emph{SWL} \cite{sorensen2005basic}. Pada TA ini, data ovservasi ketinggian \emph{runup} gelombang diukur mulai ketinggian \emph{swl}, hingga maksimum ketinggian air di daratan. Penjelasan lebih lanjut tentang pengambilan data akan dijelaskan pada bagian \nameref{kondisiEksperimen}. Runup gelombang dapat diilustrasikan dengan gambar berikut:
+    Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pantai atau struktur di atas \emph{SWL} \cite{sorensen2005basic}. Pada TA ini, data ovservasi ketinggian \emph{runup} gelombang diukur mulai ketinggian \emph{swl}, hingga maksimum ketinggian air di daratan. Penjelasan lebih lanjut tentang pengambilan data akan dijelaskan pada bagian \nameref{kondisiEksperimen}. Runup gelombang dapat diilustrasikan dengan gambar berikut:
 
-\begin{figure}
-    \begin{center}
-        \includegraphics[scale=0.7]{./images/runup_gelombang.jpg}
-    \end{center}
-    \caption{Ilustrasi \emph{Runup} gelombang oleh Mike Swenson, Coastal Morphology, University of Wisconsin-Madison \cite{MikeSwenson:WaveRunup}. \emph{SWL (Sea Water Level)} adalah ketinggian Air Normal ketika tidak gelombang . Wilayah Pantai (\emph{Foreshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan daratan. Wilayah lautan \emph{Nearshore}, dimulai dari titik \emph{SWL} yang berpotongan dengan air. Ketika titip potong air dengan daratan berada di atas \emph{SWL}, dinamakan \emph{runup}. Ketinggian \emph{runup} dinotasikan dengan $R$.}
-\end{figure}
-\FloatBarrier
+    \begin{figure}
+        \begin{center}
+            \includegraphics[scale=0.7]{./images/runup_gelombang.jpg}
+        \end{center}
+        \caption{Ilustrasi \emph{Runup} gelombang oleh Mike Swenson, Coastal Morphology, University of Wisconsin-Madison \cite{MikeSwenson:WaveRunup}. \emph{SWL (Sea Water Level)} adalah ketinggian Air Normal ketika tidak gelombang . Wilayah Pantai (\emph{Foreshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan daratan. Wilayah lautan \emph{Nearshore}, dimulai dari titik \emph{SWL} yang berpotongan dengan air. Ketika titip potong air dengan daratan berada di atas \emph{SWL}, dinamakan \emph{runup}. Ketinggian \emph{runup} dinotasikan dengan $R$.}
+    \end{figure}
+    \FloatBarrier
 
 \section{Pembelajaran Mesin}
     Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{arthur_l_samuel_1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$). Dalam TA ini, akan dibuat suatu program yang dapat belajar dari data gelombang hasil observasi ($T$). Lalu dievaluasi hasilnya dengan menggunakan $MSE$ ($P$), sehingga dapat di lihat seberapa besar galatnya. Lalu diperkecil galatnya dengan metode optimasi.
@@ -46,33 +46,27 @@ Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pant
         \tikzstyle{annot} = [text width=4em, text centered]
 
         % Draw the input layer nodes
-        \node[input neuron, pin=left:H] (I-H) at (0,-1) {};
-        \node[input neuron, pin=left:WL] (I-T) at (0,-2) {};
-        \node[input neuron, pin=left:WIND] (I-WL) at (0,-3) {};
-        \node[input neuron, pin=left:T] (I-WIND) at (0,-4) {};
+        \foreach \name / \y in {1,...,2}
+        % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
+            \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
 
         % Draw the hidden layer nodes
-        \path[yshift=0.0cm]{}
-            node[hidden neuron] (H-1) at (\layersep,-1 cm) {};
-        \path[yshift=0.0cm]{}
-            node[hidden neuron] (H-2) at (\layersep,-2 cm) {};
-        \path[yshift=0.0cm]{}
-            node[hidden neuron] (H-3) at (\layersep,-3 cm) {};
-        \path[yshift=0.0cm]{}
-            node[hidden neuron] (H-4) at (\layersep,-4 cm) {};
+        \foreach \name / \y in {1,...,2}
+            \path[yshift=0.0cm]{}
+                node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
 
         % Draw the output layer node
-        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-3] (O) {};
+        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-1] (O) {};
 
         % Connect every node in the input layer with every node in the
         % hidden layer.
-        \foreach \source in {H, T, WL, WIND}
-            \foreach \dest in {1,...,4}
-                \path (I-\source) edge node[midway, right] {$W_{hidden}$} (H-\dest);
+        \foreach \source in {1,...,2}
+            \foreach \dest in {1,...,2}
+                \path (I-\source) edge node[midway, right] {$W_{input}$} (H-\dest);
 
         % Connect every node in the hidden layer with the output layer
-        \foreach \source in {1,...,4}
-            \path (H-\source) edge node[midway, right] {$W_{output}$} (O);
+        \path (H-1) edge node[midway, right] {$W_{output}$} (O);
+        \path (H-2) edge node[midway, right] {$W_{output}$} (O);
 
         % Annotate the layers
         \node[annot,above of=H-1, node distance=1cm] (hl) {Hidden layer};
@@ -81,4 +75,26 @@ Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pant
         \label{neuralNetworkRepresentation}
     \end{tikzpicture}
 
-    Dimana $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan \emph{dot productkan} dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan di \emph{dot productkan} dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.
+    Dimana $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan \emph{didot productkan} dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan di \emph{dot productkan} dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.
+
+\subsubsection{Fungsi Aktivasi}
+    Fungsi aktivasi digunakan untuk mengubah level aktivasi pada suatu neuron menjadi sebuah sinyal output \cite{KarlicOlgacPerformanceAnalysis}. Pada TA ini, terdapat 2 fungsi aktivasi yang digunakan. Pada hidden layer, digunakan fungsi aktivasi \emph{Rectified Linear Unit (RELU)}. Fungsi aktivasi \emph{RELU} didefinisikan dengan\cite{glorot2011deep}:
+
+    \begin{equation}
+        f(x) = max(0, x)
+    \end{equation}
+
+    RELU menjadi pilihan karna memiliki performa konvergensi yang lebih baik dibanding sigmoid \cite{Krizhevsky:2012:ICD:2999134.2999257}. Untuk selanjutnya, pada neuron \emph{output}, digunakan fungsi aktivasi linear. Fungsi aktivasi linear didefinisikan dengan\cite{MLBishop}:
+
+    \begin{equation}
+        f(x) = x
+    \end{equation}
+
+\subsubsection{Estimasi Galat / \emph{Cost / Lost Function}}
+    Kalkulasi galat sangat penting untuk menentukan seberapa besar akurasi yang dimiliki model prediksi pada TA ini. Fungsi estimasi galat yang digunakan adalah \emph{Mean Square Error (MSE)}.
+
+    \begin{equation}
+        \operatorname{MSE}(\hat{\theta})=\operatorname{E}_{\hat{\theta}}\left[(\hat{\theta}-\theta)^2\right]
+    \end{equation}
+
+    \emph{MSE} dipilih sifatnya yang selalu positif. Sifatnya yang selalu positif cocok digunakan pada TA ini karna prediksi pada model yang akan dibuat bisa berupa bilangan negatif.

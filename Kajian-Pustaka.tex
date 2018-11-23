@@ -23,7 +23,6 @@
 \subsection{Neural Network}
     Selanjutnya data tersebut dimasukan kedalam suatu sistem untuk belajar. Pada TA ini, sistem yang digunakan untuk pembelajaran adalah \emph{Neural Network}.
     Model \emph{neural network} sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan \emph{Input} ($I$) (\emph{input neuron}), dan satu \emph{output} ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki \emph{output} $0$ dan $1$.
-
     \begin{equation}
         y = f(z)
     \end{equation}
@@ -34,47 +33,47 @@
     \end{equation}
 
     Di TA ini, \emph{output} yang akan dihasilkan tidak terbatas pada $0$ dan $1$. Sehingga di \emph{neuron output}, fungsi aktivasi yang digunakan adalah fungsi aktivasi linear. Model \emph{Neural Network}nya dapat direpresentasikan sebagai berikut:
-    
-    \def\layersep{5cm}
+    \begin{figure}[H]
+        \def\layersep{4cm}
+        \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
+            \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+            \tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+            \tikzstyle{input neuron}=[neuron, fill=green!50];
+            \tikzstyle{output neuron}=[neuron, fill=red!50];
+            \tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+            \tikzstyle{annot} = [text width=4em, text centered]
 
-    \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
-        \tikzstyle{every pin edge}=[<-,shorten <=1pt]
-        \tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
-        \tikzstyle{input neuron}=[neuron, fill=green!50];
-        \tikzstyle{output neuron}=[neuron, fill=red!50];
-        \tikzstyle{hidden neuron}=[neuron, fill=blue!50];
-        \tikzstyle{annot} = [text width=4em, text centered]
+            % Draw the input layer nodes
+            \foreach \name / \y in {1,...,2}
+            % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
+                \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
 
-        % Draw the input layer nodes
-        \foreach \name / \y in {1,...,2}
-        % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
-            \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+            % Draw the hidden layer nodes
+            \foreach \name / \y in {1,...,2}
+                \path[yshift=0.0cm]{}
+                    node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
 
-        % Draw the hidden layer nodes
-        \foreach \name / \y in {1,...,2}
-            \path[yshift=0.0cm]{}
-                node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+            % Draw the output layer node
+            \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-1] (O) {};
 
-        % Draw the output layer node
-        \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-1] (O) {};
+            % Connect every node in the input layer with every node in the
+            % hidden layer.
+            \foreach \source in {1,...,2}
+                \foreach \dest in {1,...,2}
+                    \path (I-\source) edge node[midway, right] {$W_{input}$} (H-\dest);
 
-        % Connect every node in the input layer with every node in the
-        % hidden layer.
-        \foreach \source in {1,...,2}
-            \foreach \dest in {1,...,2}
-                \path (I-\source) edge node[midway, right] {$W_{input}$} (H-\dest);
+            % Connect every node in the hidden layer with the output layer
+            \path (H-1) edge node[midway, right] {$W_{output}$} (O);
+            \path (H-2) edge node[midway, right] {$W_{output}$} (O);
 
-        % Connect every node in the hidden layer with the output layer
-        \path (H-1) edge node[midway, right] {$W_{output}$} (O);
-        \path (H-2) edge node[midway, right] {$W_{output}$} (O);
-
-        % Annotate the layers
-        \node[annot,above of=H-1, node distance=1cm] (hl) {Hidden layer};
-        \node[annot,left of=hl] {Input layer};
-        \node[annot,right of=hl] {Output layer};
-        \label{neuralNetworkRepresentation}
-    \end{tikzpicture}
-
+            % Annotate the layers
+            \node[annot,above of=H-1, node distance=1cm] (hl) {Hidden layer};
+            \node[annot,left of=hl] {Input layer};
+            \node[annot,right of=hl] {Output layer};
+            \label{neuralNetworkRepresentation}
+        \end{tikzpicture}
+        \caption{Model \emph{Neural Network} dengan 1 \emph{Hidden Layer}.}
+    \end{figure}
     Dimana $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan \emph{didot productkan} dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan di \emph{dot productkan} dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.
 
 \subsubsection{Fungsi Aktivasi}

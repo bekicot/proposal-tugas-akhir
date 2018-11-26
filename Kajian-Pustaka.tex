@@ -1,18 +1,21 @@
 \chapter{Kajian Pustaka}
 
-    Pembelajaran mesin sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Beliau menggunakan \emph{neural network} dengan tipe \emph{Convolutional Neural Network} untuk mendeteksi wajah. Van Gent et al (2007) \cite{van2007neural}, beliau menggunakan \emph{Neural Network} untuk menganalisa \emph{overtopping} gelombang pada struktur di wilayah pantai. Yau et al (2012)\cite{YAO201230}, dia mengerjakannya dengan menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang Pada bab ini akan dijelaskan model \emph{runup} gelombang pada terumbu karang menggunakan Pembelajaran Mesin.
+    Pembelajaran mesin sudah banyak dipakai di berbagai bidang keilmuan. Mulai dari Pemrosesan Citra seperti yang di lakukan oleh Lawrence et al (2007)\cite{lawrence1997face}. Dalam papernya dia menggunakan \emph{neural network} dengan tipe \emph{Convolutional Neural Network} untuk mendeteksi wajah. Van Gent et al (2007) \cite{van2007neural}, dia menggunakan \emph{Neural Network} untuk menganalisa \emph{overtopping} gelombang pada struktur di wilayah pantai. Yau et al (2012)\cite{YAO201230}, dalam papernya dia menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang ketika melewati terumbu karang. Pada bab ini akan dijelaskan model \emph{runup} gelombang pada terumbu karang menggunakan Pembelajaran Mesin.
 
 \section{Runup Gelombang}
 
-    Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pantai atau struktur di atas \emph{SWL} \cite{sorensen2005basic}. Pada TA ini, data ovservasi ketinggian \emph{runup} gelombang diukur mulai ketinggian \emph{swl}, hingga maksimum ketinggian air di daratan. Penjelasan lebih lanjut tentang pengambilan data akan dijelaskan pada bagian \nameref{kondisiEksperimen}. Runup gelombang dapat diilustrasikan dengan gambar berikut:
+    Runup gelombang adalah jarak vertikal maksimum dari kenaikan gelombang pada pantai atau struktur di atas \emph{SWL} \cite{sorensen2005basic}. Pada TA ini, data ovservasi ketinggian \emph{runup} gelombang diukur mulai ketinggian \emph{swl}, hingga maksimum ketinggian air di daratan. Penjelasan lebih lanjut tentang pengambilan data akan dijelaskan pada bagian \nameref{kondisiEksperimen}. Runup gelombang dapat diilustrasikan pada gambar \ref{fig:runup}.
 
     \begin{figure}
         \begin{center}
             \includegraphics[scale=0.7]{./images/runup_gelombang.jpg}
         \end{center}
-        \caption{Ilustrasi \emph{Runup} gelombang oleh Mike Swenson, Coastal Morphology, University of Wisconsin-Madison \cite{MikeSwenson:WaveRunup}. \emph{SWL (Sea Water Level)} adalah ketinggian Air Normal ketika tidak gelombang . Wilayah Pantai (\emph{Foreshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan daratan. Wilayah lautan \emph{Nearshore}, dimulai dari titik \emph{SWL} yang berpotongan dengan air. Ketika titip potong air dengan daratan berada di atas \emph{SWL}, dinamakan \emph{runup}. Ketinggian \emph{runup} dinotasikan dengan $R$.}
+        \caption{Ilustrasi \emph{Runup} gelombang oleh Mike Swenson, Coastal Morphology, University of Wisconsin-Madison \cite{MikeSwenson:WaveRunup}.}
+        \label{fig:runup}
     \end{figure}
     \FloatBarrier
+
+    Pada gambar \ref{fig:runup}, \emph{SWL (Sea Water Level)} adalah ketinggian Air Normal ketika tidak ada gelombang. Wilayah Pantai (\emph{Foreshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan daratan. Wilayah lautan (\emph{Nearshore}), dimulai dari titik \emph{SWL} yang berpotongan dengan air. Ketika titik potong air dengan daratan berada di atas \emph{SWL}, maka kondisi tersebut dinamakan dengan \emph{runup}. Ketinggian \emph{runup} dinotasikan dengan $R$. Simbol $\upbeta$ melambangkan kemiringan bibir pantai.
 
 \section{Pembelajaran Mesin}
     Pembelajaran mesin adalah bidang studi yang memberikan kemampuan komputer untuk belajar, tanpa harus di program secara khusus \cite{arthur_l_samuel_1959}. Mesin dikatakan belajar dari pengalaman ($E$) terhadap tugas ($T$) dan ukuran kinerja ($P$), jika kinerja pada tugas ($T$), yang di ukur berdasarkan ($P$), berkembang berdasarkan pengalaman ($E$). Dalam TA ini, akan dibuat suatu program yang dapat belajar dari data gelombang hasil observasi ($T$). Lalu dievaluasi hasilnya dengan menggunakan $MSE$ ($P$), sehingga dapat di lihat seberapa besar galatnya. Lalu diperkecil galatnya dengan metode optimasi.
@@ -23,6 +26,7 @@
 \subsection{Neural Network}
     Selanjutnya data tersebut dimasukan kedalam suatu sistem untuk belajar. Pada TA ini, sistem yang digunakan untuk pembelajaran adalah \emph{Neural Network}.
     Model \emph{neural network} sederhana di definisikan oleh McCulloch-Pitts \cite{McCulloch1943}. Dimana persamaan memiliki $M$ himpunan \emph{Input} ($I$) (\emph{input neuron}), dan satu \emph{output} ($y$), dengan $y$ merupakan bagian dari $\{0,1\}$. Atau dengan kata lain, $y$ adalah fungsi yang hanya memiliki \emph{output} $0$ dan $1$.
+
     \begin{equation}
         y = f(z)
     \end{equation}
@@ -32,7 +36,8 @@
         z = \sum_{i=1}^N I_iW_i
     \end{equation}
 
-    Di TA ini, \emph{output} yang akan dihasilkan tidak terbatas pada $0$ dan $1$. Sehingga di \emph{neuron output}, fungsi aktivasi yang digunakan adalah fungsi aktivasi linear. Model \emph{Neural Network}nya dapat direpresentasikan sebagai berikut:
+    Di TA ini, \emph{output} yang akan dihasilkan tidak terbatas pada $0$ dan $1$. Sehingga di \emph{neuron output}, fungsi aktivasi yang digunakan adalah fungsi aktivasi linear. Model \emph{Neural Network}nya dapat direpresentasikan pada gambar \ref{fig:neural_network_sederhana}
+
     \begin{figure}[H]
         \def\layersep{4cm}
         \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
@@ -73,27 +78,33 @@
             \label{neuralNetworkRepresentation}
         \end{tikzpicture}
         \caption{Model \emph{Neural Network} dengan 1 \emph{Hidden Layer}.}
+        \label{fig:neural_network_sederhana}
     \end{figure}
-    Dimana $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan \emph{didot productkan} dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan di \emph{dot productkan} dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.
+
+    Pada gambar \ref{fig:neural_network_sederhana}, $W$ adalah peubah yang menyatakan berat. Masing masing \emph{input} akan dikalikan dengan $W_{input}$ \emph{hidden layer} tertentu untuk menghasilkan nilai pada \emph{hidden layer neuron} tersebut. Selanjutnya, nilai hasil aktivasi di \emph{hidden layer}, akan dikalikan dengan $W_{output}$. Untuk selanjutnya menjadi \emph{output}, yakni prediksi dari runup gelombang.
 
 \subsubsection{Fungsi Aktivasi}
-    Fungsi aktivasi digunakan untuk mengubah level aktivasi pada suatu neuron menjadi sebuah sinyal output \cite{KarlicOlgacPerformanceAnalysis}. Pada TA ini, terdapat 2 fungsi aktivasi yang digunakan. Pada hidden layer, digunakan fungsi aktivasi \emph{Rectified Linear Unit (RELU)}. Fungsi aktivasi \emph{RELU} didefinisikan dengan\cite{glorot2011deep}:
+    Fungsi aktivasi digunakan untuk mengubah level aktivasi pada suatu neuron menjadi sebuah sinyal output \cite{KarlicOlgacPerformanceAnalysis}. Pada TA ini, terdapat 2 fungsi aktivasi yang digunakan. Pada hidden layer, digunakan fungsi aktivasi \emph{Rectified Linear Unit (RELU)}. Fungsi aktivasi \emph{RELU} didefinisikan dengan persamaan \ref{eq:aktivasi_relu} \cite{glorot2011deep}.
 
     \begin{equation}
-        f(x) = max(0, x)
+        f(z) = max(0, z)
+        \label{eq:aktivasi_relu}
     \end{equation}
 
-    RELU menjadi pilihan karna memiliki performa konvergensi yang lebih baik dibanding sigmoid \cite{Krizhevsky:2012:ICD:2999134.2999257}. Untuk selanjutnya, pada neuron \emph{output}, digunakan fungsi aktivasi linear. Fungsi aktivasi linear didefinisikan dengan\cite{MLBishop}:
+    RELU menjadi pilihan karna memiliki performa konvergensi yang lebih baik dibanding sigmoid \cite{Krizhevsky:2012:ICD:2999134.2999257}. Untuk selanjutnya, pada neuron \emph{output}, digunakan fungsi aktivasi linear. Fungsi aktivasi linear didefinisikan dengan persamaan \ref{eq:aktivasi_linear} \cite{MLBishop}.
 
     \begin{equation}
-        f(x) = x
+        f(z) = z
+        \label{eq:aktivasi_linear}
     \end{equation}
 
 \subsubsection{Estimasi Galat / \emph{Cost / Lost Function}}
-    Kalkulasi galat sangat penting untuk menentukan seberapa besar akurasi yang dimiliki model prediksi pada TA ini. Fungsi estimasi galat yang digunakan adalah \emph{Mean Square Error (MSE)}.
+    Kalkulasi galat sangat penting untuk menentukan seberapa besar akurasi yang dimiliki model prediksi pada TA ini. Fungsi estimasi galat yang digunakan adalah \emph{Mean Square Error (MSE)}. Persamaan MSE didefinisikan dengan
 
     \begin{equation}
-        \operatorname{MSE}(\hat{\theta})=\operatorname{E}_{\hat{\theta}}\left[(\hat{\theta}-\theta)^2\right]
+        \operatorname{MSE}=\frac{1}{n}\sum_{i=1}^n(Y_i-\hat{Y_i})^2,
     \end{equation}
+
+    dimana $Y$ adalah ketinggian gelombang hasil observasi, $\hat{Y}$ adalah ketinggian gelombang hasil observasi, dan $n$ adalah jumlah data training.
 
     \emph{MSE} dipilih sifatnya yang selalu positif. Sifatnya yang selalu positif cocok digunakan pada TA ini karna prediksi pada model yang akan dibuat bisa berupa bilangan negatif.

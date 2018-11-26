@@ -8,18 +8,19 @@ Terumbu karang adalah ekosistem bawah laut yang terbentuk dari sekumpulan karang
         \includegraphics[scale=0.1]{./images/hawai_coral.jpg}
     \end{center}
     \caption{Terumbu Karang di tepi pantai di sekitar Hawai.}
+    \label{fig:hawai_coral}
 \end{figure}
 
-Gelombang yang melewati terumbu karang akan teredam kecepatannya \cite{DemirbilekReport}. Hal ini akan mempengaruhi naiknya gelombang ke daratan di atas batas normal, atau dalam literatur lain disebut \emph{runup} gelombang \cite{nielsen1991wave}. Teredamnya kecepatan gelombang disebabkan oleh bertumbukannya dasar gelombang dengan karang. Dalam beberapa kasus, hal ini menyebabkan pecahnya gelombang \cite{DemirbilekReport}
+Gelombang yang melewati terumbu karang akan teredam kecepatannya \cite{DemirbilekReport}. Hal ini akan mempengaruhi naiknya gelombang ke daratan di atas batas normal, atau dalam literatur lain disebut \emph{runup} gelombang \cite{nielsen1991wave}. Teredamnya kecepatan gelombang disebabkan oleh bertumbukannya dasar gelombang dengan karang. Dalam beberapa kasus, hal ini menyebabkan pecahnya gelombang \cite{DemirbilekReport}. Pada gambar \ref{fig:hawai_coral} dapat terlihat pecahnya gelombang yang terjadi di atas karang.
 
-Namun efektifitas dari terumbu karang dalam meredam gelombang masih menjadi perdebatan para peneliti. Yang selama ini dilakukan dalam mempelajari redaman dari terumbu karang adalah eksperimen di laboratorium. Seperti yang dilakukan Yau et al (2012)\cite{YAO201230}, dia mengerjakannya dengan menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang.  Namun cara mempelajari ini tergolong mahal dan membutuhkan pemodelan matematika yang dalam untuk memodelkan pecahnya gelombang.
+Efektifitas dari terumbu karang dalam meredam gelombang masih menjadi perdebatan para peneliti. Yang selama ini dilakukan dalam mempelajari redaman dari terumbu karang adalah eksperimen di laboratorium. Seperti yang dilakukan Yau et al (2012)\cite{YAO201230}. Dalam papernya dia menggunakan model \emph{Boussinesq} 1 dimensi untuk memodelkan transformasi gelombang saat melewati terumbu karang.  Namun cara mempelajari ini tergolong mahal dan membutuhkan pemodelan matematika yang dalam untuk memodelkan pecahnya gelombang.
 
-Selama ini metode yang ada untuk memprediksi tinggi gelombang \emph{runup} pada terumbu karang masih tergolong baru. Metodenya sendiri terbagi menjadi 2. Metode yang pertama dilakukan dengan pendekatan klasik, dan di lakukan secara analitis. Yakni dengan melakukan eksperimen dan observasi, lalu di cari model matematika yang tepat. Model yang demikian sulit untuk dikembangkan dan beradaptasi dengan kondisi lingkungan yang berbeda. Prediksi yang didapat dari model yang demikian pun masih belum sempurna \cite{DemirbilekBoussinesq}. Sedangkan metode yang kedua dilakukan dengan pendekatan \emph{soft computing}.
+Selama ini metode yang ada untuk memprediksi tinggi gelombang \emph{runup} pada terumbu karang menggunakan pembelajaran mesin masih tergolong baru. Metodenya sendiri terbagi menjadi 2. Metode yang pertama dilakukan dengan pendekatan klasik, dan di lakukan secara analitis. Yakni dengan melakukan eksperimen dan observasi, lalu di cari model matematika yang tepat. Model yang demikian sulit untuk dikembangkan dan beradaptasi dengan kondisi lingkungan yang berbeda. Prediksi yang didapat dari model yang demikian pun masih belum sempurna \cite{DemirbilekBoussinesq}. Sedangkan metode yang kedua dilakukan dengan pendekatan \emph{soft computing}.
 
-Pada TA ini kami menggunakan Pembelajaran Mesin untuk memprediksi \emph{runup} gelombang. Metode yang digunakan disini adalah \emph{supervised learning}, dengan menggunakan data dari Demirbilek et al (2007)\cite{DemirbilekReport}. Dari data hasil \emph{training} dan \emph{testing} dengan konfigurasi neural network. Diharapakan mendapatkan model dengan akurasi yang tinggi.
+Pada TA ini digunakan Pembelajaran Mesin untuk memprediksi \emph{runup} gelombang. Metode yang digunakan disini adalah \emph{supervised learning}, dengan menggunakan data analisa observasi gelombang yang dilakukan oleh Demirbilek et al (2007)\cite{DemirbilekReport}. Data tersebut akan di \emph{training} dengan konfigurasi neural network. Dari proses training tersebut diharapakan mendapatkan model prediksi \emph{runup} gelombang dengan akurasi yang tinggi.
 
 \section{Perumusan Masalah}
-Rumusan masalah yang ingin yang angkat pada TA ini adalah
+Rumusan masalah yang ingin diangkat pada TA ini adalah
 \begin{enumerate}
     \item Bagaimana melakukan pemodelan supervised learning dengan data eksperimen yang dilakukan di laboratorium?
     \item Bagaimana akurasi dari model prediksi runup gelombang yang telah dibuat?

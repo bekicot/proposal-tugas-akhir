@@ -2,53 +2,54 @@
   Metode yang akan digunakan pada TA ini adalah Artificial Neural Network. Data hasil analisa Demirbilek et al (2007) \cite{DemirbilekReport} akan dibagi 2. Yakni 80 persen untuk training, dan 20 persen untuk testing. Masing masing, akan disimpan ke dalam file csv. Sistem akan membaca data training langsung dari file, lalu dimasukannya sebagai input ke dalam algoritma ANN. Setelah training, sistem akan menghasilkan suatu model dengan matriks dengan attribut $W_{input}$ dan $W_{output}$ di dalamnya. Tujuannya adalah mendapatkan suatu model yang cukup baik untuk menghasilkan prediksi yang cukup akurat.
 
 \section{Deskripsi Data}
-Data yang akan digunakan dalam aplikasi neural network di TA ini adalah data hasil analisis dari eksperimen yang di lakukan oleh US Army Corps of Engineer pada Agustus - September 2006. Analisa dilakukan oleh Demirbilek et al. dan di tulis dalam laporan yang berjudul \emph{"Laboratory Study of Wind Effect on Runup over Fringing Reefs"}.
+  Data yang akan digunakan dalam aplikasi neural network di TA ini adalah data hasil analisis dari eksperimen yang di lakukan oleh US Army Corps of Engineer pada Agustus - September 2006. Analisa dilakukan oleh Demirbilek et al. dan di tulis dalam laporan yang berjudul \emph{"Laboratory Study of Wind Effect on Runup over Fringing Reefs"}.
 
 \subsection{Kondisi Eksperimen}
 \label{kondisiEksperimen}
 
-Eksperimen dibagi menjadi 3 bagian. Eksperimen pertama dilakukan hanya menggunakan variabel gelombang, dengan kecepatan angin 0. Eksperimen kedua, dilakukan hanya menggunakan variabel angin. Selanjutnya eksperimen ketiga adalah gabungan dari perubahan variable gelombang dan variabel angin.
+  Eksperimen dibagi menjadi 3 bagian. Eksperimen pertama dilakukan hanya menggunakan variabel gelombang, dengan kecepatan angin 0. Eksperimen kedua, dilakukan hanya menggunakan variabel angin. Selanjutnya eksperimen ketiga adalah gabungan dari perubahan variable gelombang dan variabel angin.
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[scale=0.2]{./images/instrumen_eksperimen.png}
-  \end{center}
-  \caption{Instrumen eksperimen yang digunakan oleh Demirbilek et al \cite{DemirbilekReport}.}
-\end{figure}
-\FloatBarrier
+  \begin{figure}
+    \begin{center}
+      \includegraphics[scale=0.2]{./images/instrumen_eksperimen.png}
+    \end{center}
+    \caption{Instrumen eksperimen yang digunakan oleh Demirbilek et al \cite{DemirbilekReport}.}
+    \label{fig:intrumen_demirbilek}
+  \end{figure}
+  \FloatBarrier
 
-Pada eksperimen ini ada 9 sensor gelombang, 2 sensor kecepatan angin, dan 1 sensor \emph{runup} gelombang. Wilayah penyebaran sensor gelombang dikelompokan menjadi 2. Wilayah pertama berada di atas karang dan wilayah kedua berada di laut.. Wilayah karang merupakan gabungan dari wilayah karang yang datar \emph{Reef Flat} dan wilayah karang yang miring. Wilayah karang datar memiliki panjang mulai dari \emph{SWL} hingga 4.8 meter ke arah laut. Wilayah karang yang miring \emph{Reef Slope} di mulai dari bibir karang datar hingga 4.79 meter ke arah laut. Laut didefinisikan dengan wilayah dengan dasar terdalam. Untuk sensor 1, 2, dan 3 tersebar di wilayah laut, sensor 4, 5, dan 6 tersebar di wilayah \emph{reef slope}, dan untuk sensor 7, 8, dan 9 tersebar di wilayah \emph{reef flat}.
+  Gambar \ref{fig:intrumen_demirbilek} merupakan konfigurasi yang digunakan Demirbilek et al \cite{DemirbilekReport} untuk mengamati gelombang. Pada konfigurasi tersebut ada 9 sensor gelombang, 2 sensor kecepatan angin, dan 1 sensor \emph{runup} gelombang. Wilayah penyebaran sensor gelombang dikelompokan menjadi 2. Wilayah pertama berada di atas karang dan wilayah kedua berada di laut.. Wilayah karang merupakan gabungan dari wilayah karang yang datar \emph{Reef Flat} dan wilayah karang yang miring. Wilayah karang datar memiliki panjang mulai dari \emph{SWL} hingga 4.8 meter ke arah laut. Wilayah karang yang miring \emph{Reef Slope} di mulai dari bibir karang datar hingga 4.79 meter ke arah laut. Laut didefinisikan dengan wilayah dengan dasar terdalam. Untuk sensor 1, 2, dan 3 tersebar di wilayah laut, sensor 4, 5, dan 6 tersebar di wilayah \emph{reef slope}, dan untuk sensor 7, 8, dan 9 tersebar di wilayah \emph{reef flat}.
 
 \pagebreak
 
 \subsection{Hasil Analisa Data}
+  Dari laporan \emph{"Laboratory Study of Wind Effect on Runup over Fringing Reefs"} \cite{DemirbilekReport} data yang dihasilkan berupa data hasil analisa yang berasal dari \emph{raw data} yang merupakan time series. Pada table \ref{tabel:sampel_analisa}, $H$ merupakan tinggi gelombang, $T$ merupakan spectral peak periods, $WL$ merupakan Wave Length, dan $R_{max}$ adalah ketinggian maksimum dari \emph{runup}. $H$, $WL$, dan $R_{max}$ merupakan dalam $cm$.
 
-Dari laporan \emph{"Laboratory Study of Wind Effect on Runup over Fringing Reefs"} \cite{DemirbilekReport} data yang di hasilkan berupa data hasil analisa yang berasal dari raw data yang merupakan time series. Pada table tersebut $H$ merupakan tinggi gelombang, $T$ merupakan spectral peak periods, $WL$ merupakan Wave Length, dan $R_{max}$ adalah ketinggian maksimum dari \emph{runup}. $H$, $WL$, dan $R_{max}$ merupakan dalam $cm$.
-
-\begin{table}
-    \begin{center}
-      \begin{tabular}{|l|l|l|l|l|l|l|l|}
-      \hline
-      TestId & H & T & WL & $R_{max}$ & Wind \\ \hline
-      Test99 & 5.5 & 1.25 & 50.0 & 1.5 & 7.1 \\ \hline
-      Test100 & 6.0 & 1.0 & 50.0 & 1.6 & 6.9 \\ \hline
-      Test101 & 3.3 & 1.0 & 50.0 & 0.7 & 5.3 \\ \hline
-      Test102 & 8.2 & 2.5 & 53.1 & 8.4 & 7.0 \\ \hline
-      Test103 & 8.6 & 2.0 & 53.1 & 7.8 & 7.1 \\ \hline
-      Test104 & 8.0 & 1.75 & 53.1 & 6.7 & 5.8 \\ \hline
-      Test105 & 7.8 & 1.5 & 53.1 & 5.9 & 6.3 \\ \hline
-      Test106 & 5.4 & 1.5 & 53.1 & 4.0 & 6.7 \\ \hline
-      Test107 & 6.3 & 1.25 & 53.1 & 4.5 & 6.8 \\ \hline
-      Test108 & 6.6 & 1.0 & 53.1 & 6.4 & 6.7 \\ \hline
-      Test109 & 3.8 & 1.0 & 53.1 & 5.3 & 6.5 \\ \hline
-      \end{tabular}
-    \end{center}
-    \caption{Sampel data hasil analisa.}
-  \end{table}
-\FloatBarrier
+  \begin{table}
+      \begin{center}
+        \begin{tabular}{|l|l|l|l|l|l|l|l|}
+        \hline
+        TestId & H & T & WL & $R_{max}$ & Wind \\ \hline
+        Test99 & 5.5 & 1.25 & 50.0 & 1.5 & 7.1 \\ \hline
+        Test100 & 6.0 & 1.0 & 50.0 & 1.6 & 6.9 \\ \hline
+        Test101 & 3.3 & 1.0 & 50.0 & 0.7 & 5.3 \\ \hline
+        Test102 & 8.2 & 2.5 & 53.1 & 8.4 & 7.0 \\ \hline
+        Test103 & 8.6 & 2.0 & 53.1 & 7.8 & 7.1 \\ \hline
+        Test104 & 8.0 & 1.75 & 53.1 & 6.7 & 5.8 \\ \hline
+        Test105 & 7.8 & 1.5 & 53.1 & 5.9 & 6.3 \\ \hline
+        Test106 & 5.4 & 1.5 & 53.1 & 4.0 & 6.7 \\ \hline
+        Test107 & 6.3 & 1.25 & 53.1 & 4.5 & 6.8 \\ \hline
+        Test108 & 6.6 & 1.0 & 53.1 & 6.4 & 6.7 \\ \hline
+        Test109 & 3.8 & 1.0 & 53.1 & 5.3 & 6.5 \\ \hline
+        \end{tabular}
+      \end{center}
+      \caption{Sampel data hasil analisa.}
+      \label{tabel:sampel_analisa}
+    \end{table}
+  \FloatBarrier
 
 \section{Model Artificial Neural Network}
-  Pada TA ini, digunakan model ANN dengan 1 hidden layer (\emph{Non-deep Neural Network}). Terdapat 4 input, yang berupa vector dengan masing-masing nilai berupa $H$ (\emph{Significant Height} Gelombang) dalam $cm$, $T$ (\emph{Spectral Peak Periods}) dalam $detik$, $WL$ (\emph{Wave Length}) dalam $cm$, dan $WIND$ (kecepatan angin) dalam $meter/detik$. Model AAN ini memiliki 1 output dan merupakan model \emph{regressi linear}. Output merupakan prediksi ketinggian \emph{runup} dengan satuan $cm$.
+  Pada TA ini, digunakan model ANN dengan 1 hidden layer (\emph{Non-deep Neural Network}). Terdapat 4 input, yang berupa vector dengan masing-masing nilai berupa $H$ (\emph{Significant Height} Gelombang) dalam $cm$, $T$ (\emph{Spectral Peak Periods}) dalam $detik$, $WL$ (\emph{Wave Length}) dalam $cm$, dan $WIND$ (kecepatan angin) dalam $meter/detik$. Model AAN ini memiliki 1 output dan merupakan model \emph{regressi linear}. Output merupakan prediksi ketinggian \emph{runup} dengan satuan $cm$. Model tersebut direpresentasikan pada gambar \ref{fig:model_ann_ta_ini}.
 
   \def\layersep{4cm}
   \begin{figure}
@@ -96,6 +97,7 @@ Dari laporan \emph{"Laboratory Study of Wind Effect on Runup over Fringing Reefs
         \label{modelANNTA}
     \end{tikzpicture}
     \caption{Model ANN yang digunakan pada TA ini.}
+    \label{fig:model_ann_ta_ini}
   \end{figure}
   \FloatBarrier
 
@@ -105,9 +107,9 @@ Secara keseluruhan, terdapat bentuk hirarki dalam sistem ini. Hirarki \emph{root
 
 \subsection{Flowchart Sistem Utama}
 
-  Sistem utama merupakan pengatur dari komponen-komponen yang ada pada sistem TA ini. Komponen-komponen tersebut termasuk: Pembacaan Data, Transformasi Data, Pembagian Data, Inisialisasi Epoch Dan Learning Rate, Melakukan Training, dan Melakukan Testing.
+  Sistem utama merupakan pengatur dari komponen-komponen yang ada pada sistem TA ini. Komponen-komponen tersebut termasuk: Pembacaan Data, Transformasi Data, Pembagian Data, Inisialisasi Epoch Dan Learning Rate, Melakukan Training, dan Melakukan Testing. Alur kerja lebih lanjut dapat dilihat pada gambar \ref{fig:flowchart_sistem}.
 
-  Sistem dimulai dengan membaca data. Pembacaan data dibagi menjadi 2. Pembacaan data training dan pembacaan data testing. Data training mencakup 80 persen dari seluruh data observasi, sedangkan data training mencakup 20 persen. Hal ini sejalan dengan Fan et al \cite{fan2008liblinear}, dimana beliau menggunakan rasio 80/20 untuk training dan testing. Setelah melakukan pembacaan data, sistem akan melakukan transformasi data. Mengubah data csv, menjadi matriks dengan panjang kolom 4, yang mewakili $H$, $T$, $WL$, dan $WIND$. Komponen selanjutnya adalah inisialisasi \emph{epoch} dan \emph{learning rate}. \emph{Epoch} adalah representasi dari keseluruhan data yang digunakan pada training. Sedangkan \emph{learning rate} adalah besaran dari suatu langkah pembelajaran. Nilai dari \emph{learning rate} dan \emph{epoch} selanjutnya akan dimasukan ke dalam fungsi training. 
+  Sistem utama dimulai dengan membaca data. Pembacaan data dibagi menjadi 2. Pembacaan data training dan pembacaan data testing. Data training mencakup 80 persen dari seluruh data observasi, sedangkan data training mencakup 20 persen. Hal ini sejalan dengan Fan et al \cite{fan2008liblinear}, dimana beliau menggunakan rasio 80/20 untuk training dan testing. Setelah melakukan pembacaan data, sistem akan melakukan transformasi data. Mengubah data csv, menjadi matriks dengan panjang kolom 4, yang mewakili $H$, $T$, $WL$, dan $WIND$. Komponen selanjutnya adalah inisialisasi \emph{epoch} dan \emph{learning rate}. \emph{Epoch} adalah representasi dari keseluruhan data yang digunakan pada training. Sedangkan \emph{learning rate} adalah besaran dari suatu langkah pembelajaran. Nilai dari \emph{learning rate} dan \emph{epoch} selanjutnya akan dimasukan ke dalam fungsi training.
 
 \begin{figure}[ht]
   \caption{Flowchart Sistem Utama}
@@ -121,7 +123,8 @@ Secara keseluruhan, terdapat bentuk hirarki dalam sistem ini. Hirarki \emph{root
         text width=12em, text centered, minimum height=2em]
     \tikzstyle{line} = [draw, -latex']
         
-    \begin{tikzpicture}[node distance = 2.3cm, auto]
+    \begin{tikzpicture}[node distance = 1.5cm, auto]
+        \footnotesize
         % Place nodes
         \node [circle] (init) {Mulai};
         \node [block, below of=init] (bacaData) {Membaca data report dari csv file};
@@ -141,49 +144,53 @@ Secara keseluruhan, terdapat bentuk hirarki dalam sistem ini. Hirarki \emph{root
         \label{fig:sistem}
     \end{tikzpicture}
   \end{center}
+  \label{fig:flowchart_sistem}
 \end{figure}
 \FloatBarrier
 
 \subsection{Flowchart Komponen Training Dan Testing}
 \label{FlowChartTraining}
-Pada bagian training dan testing \ref{fig:sistem}, algoritma yang digunakan adalah algoritma ANN. Untuk testing, hanya dilakukan algoritma \emph{Feed Forward}.
+  Pada bagian training dan testing \ref{fig:sistem}, algoritma yang digunakan adalah algoritma ANN. Untuk testing, hanya dilakukan algoritma \emph{Feed Forward}. Alur kerja ANN representasikan pada gambar \ref{fig:alur_ann}.
+  \begin{figure}[ht]
+    \caption{Flowchart Komponen Training Dan Testing}
+    \begin{center}
+      \footnotesize
+      \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+          text width=10em, text centered, minimum height=6em]
+      \tikzstyle{blockTraining} = [rectangle, draw, fill=red!20, 
+          text width=14em, text centered, minimum height=2em]
+      \tikzstyle{stopTrainng} = [rectangle, draw, fill=red!20, 
+          text width=3em, text centered,  distance=10cm]
+      \tikzstyle{line} = [draw, -latex']
+      \tikzstyle{circle} = [draw, ellipse, minimum height=2em, distance=4em]
+      \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+          text width=4em, text badly centered, node distance=2.5cm, inner sep=0pt]
+          
+      \begin{tikzpicture}[node distance = 1.5cm, auto]
+          % Place nodes
+          \node [circle] (init) {Mulai};
+          \node [blockTraining, below of=init] (randomWeight) {Inisialisasi $weight$ dengan random data};
+          \node [blockTraining, below of=randomWeight] (IW){Mengalikan Input Layer Dengan $Weight$ hidden layer};
+          \node [blockTraining, below of=IW] (aktivasi){Jalankan fungsi aktivasi hidden layer};
+          \node [blockTraining, below of=aktivasi] (HW){Mengalikan Input Layer Dengan $Weight$ untuk $output$};
+          \node [blockTraining, below of=HW] (aktivasiOutput){Menjalankan fungsi aktivasi untuk output neuron};
+          \node [blockTraining, below of=aktivasiOutput] (cost){Kalkulasi Error};
+          \node [circle, below of=cost] (stop){Stop};
+    
+          % Draw edges
+          \path [line] (init) -- (randomWeight);
+          \path [line] (randomWeight) -- (IW);
+          \path [line] (IW) -- (aktivasi);
+          \path [line] (aktivasi) -- (HW);
+          \path [line] (HW) -- (aktivasiOutput);
+          \path [line] (aktivasiOutput) -- (cost);
+          \path [line] (cost) -- (stop);
+      \end{tikzpicture}
+    \end{center}
+    \label{fig:alur_ann}
+  \end{figure}
+  \FloatBarrier
 
-Algoritma ANN dimulai dengan inisialisasi weight dengan random data. Selanjutnya, nilai pada \emph{input parameter} akan dikalikan dengan $weight$ \emph{hidden layer} $W^1$, sehingga dihasilkan $a^1$. Untuk menjadi nilai pada \emph{neuron hidden layer} $z^1$, $a$ akan diaktifasi dengan fungsi aktivasi $RELU$ sehingga nilai $z^1$ merupakan hasil dari $relu(a)$. Untuk mengahasilkan nilai prediksi, $z^1$ dikalikan dengan $weight$ pada \emph{output} $W^2$, sehingga mengasilkan $a^2$. Nilai $a^2$ merupakan nilai hasil prediksi, karna fungsi aktivasi dari \emph{output} adalah linear ($f(a) = a$).
+  Pada gambar \ref{fig:alur_ann}, algoritma ANN dimulai dengan inisialisasi weight dengan random data. Selanjutnya, nilai pada \emph{input layer} akan dikalikan dengan $weight$ \emph{hidden layer} $W^1$, sehingga dihasilkan $a^1$. Untuk menjadi nilai pada \emph{neuron hidden layer} $z^1$, $a$ akan diaktifasi dengan fungsi aktivasi $RELU$ sehingga nilai $z^1$ merupakan hasil dari $relu(a)$. Untuk mengahasilkan nilai prediksi, $z^1$ dikalikan dengan $weight$ pada \emph{output} $W^2$, sehingga mengasilkan $a^2$. Nilai $a^2$ merupakan nilai hasil prediksi, karna fungsi aktivasi dari \emph{output} adalah linear ($f(a) = a$). Lihat gambar \ref{fig:model_ann_ta_ini} untuk representasi dari Model ANN yang digunakan pada TA ini.
 
-\begin{figure}[ht]
-  \caption{Flowchart Komponen Training Dan Testing}
-  \begin{center}
-    \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-        text width=10em, text centered, minimum height=6em]
-    \tikzstyle{blockTraining} = [rectangle, draw, fill=red!20, 
-        text width=14em, text centered, minimum height=2em]
-    \tikzstyle{stopTrainng} = [rectangle, draw, fill=red!20, 
-        text width=3em, text centered,  distance=10cm]
-    \tikzstyle{line} = [draw, -latex']
-    \tikzstyle{circle} = [draw, ellipse, minimum height=2em, distance=4em]
-    \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
-        text width=4em, text badly centered, node distance=2.5cm, inner sep=0pt]
-        
-    \begin{tikzpicture}[node distance = 2cm, auto]
-        % Place nodes
-        \node [circle] (init) {Mulai};
-        \node [blockTraining, below of=init] (randomWeight) {Inisialisasi $weight$ dengan random data};
-        \node [blockTraining, below of=randomWeight] (IW){Mengalikan Input Layer Dengan $Weight$ hidden layer};
-        \node [blockTraining, below of=IW] (aktivasi){Jalankan fungsi aktivasi hidden layer};
-        \node [blockTraining, below of=aktivasi] (HW){Mengalikan Input Layer Dengan $Weight$ untuk $output$};
-        \node [blockTraining, below of=HW] (aktivasiOutput){Menjalankan fungsi aktivasi untuk output neuron};
-        \node [blockTraining, below of=aktivasiOutput] (cost){Kalkulasi Error};
-        \node [circle, below of=cost] (stop){Stop};
-  
-        % Draw edges
-        \path [line] (init) -- (randomWeight);
-        \path [line] (randomWeight) -- (IW);
-        \path [line] (IW) -- (aktivasi);
-        \path [line] (aktivasi) -- (HW);
-        \path [line] (HW) -- (aktivasiOutput);
-        \path [line] (aktivasiOutput) -- (cost);
-        \path [line] (cost) -- (stop);
-    \end{tikzpicture}
-  \end{center}
-\end{figure}
 \FloatBarrier
